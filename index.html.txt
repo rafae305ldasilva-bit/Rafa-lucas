@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Rafa & Lucas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2.8em;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .text {
+      max-width: 500px;
+      margin: 20px auto;
+      font-size: 1.2em;
+      background: rgba(255,255,255,0.15);
+      padding: 20px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .gallery img {
+      width: 90%;
+      max-width: 400px;
+      margin: 10px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .contador {
+      margin-top: 20px;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    /* 💖 Corações */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      color: rgba(255,255,255,0.8);
+      animation: subir 6s linear infinite;
+      font-size: 20px;
+    }
+
+    @keyframes subir {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<h1>Rafa & Lucas 💖</h1>
+
+<div class="container">
+
+  <div class="text">
+    Um site para lembrar o meu amor e carinho por você.<br><br>
+    Te conheci por uma live de tiktok e te mandava rosas kkk, mas naquela época não fazia ideia de tudo que você ia se tornar pra mim.<br><br>
+    <b>TE AMO.</b>
+  </div>
+
+  <div class="contador" id="contador"></div>
+
+  <div class="gallery">
+    <img src="foto1.jpg">
+    <img src="foto2.jpg">
+  </div>
+
+</div>
+
+<!-- Música -->
+<audio autoplay loop>
+  <source src="musica.mp3" type="audio/mp3">
+</audio>
+
+<script>
+  const dataInicio = new Date("2025-08-31");
+
+  function atualizarContador() {
+    const agora = new Date();
+    const diff = agora - dataInicio;
+
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutos = Math.floor((diff / (1000 * 60)) % 60);
+
+    document.getElementById("contador").innerHTML =
+      "Estamos juntos há " + dias + " dias, " + horas + "h e " + minutos + "min 💖";
+  }
+
+  setInterval(atualizarContador, 1000);
+
+  // 💖 Criar corações
+  function criarCoracao() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }
+
+  setInterval(criarCoracao, 300);
+</script>
+
+</body>
+</html>
