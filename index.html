@@ -42,19 +42,45 @@
       box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     }
 
-    .contador {
+    /* 💖 CONTADOR BONITO */
+    #contador {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
       margin-top: 20px;
-      font-size: 1.4em;
-      font-weight: bold;
     }
 
-    /* 💖 Corações */
+    #contador span {
+      background: rgba(255,255,255,0.2);
+      padding: 15px;
+      border-radius: 15px;
+      min-width: 70px;
+      backdrop-filter: blur(5px);
+      animation: pulse 2s infinite;
+    }
+
+    #contador b {
+      display: block;
+      font-size: 1.5em;
+    }
+
+    #contador small {
+      font-size: 0.8em;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    /* 💖 CORAÇÕES */
     .heart {
       position: fixed;
       bottom: -20px;
       color: rgba(255,255,255,0.8);
       animation: subir 6s linear infinite;
-      font-size: 20px;
     }
 
     @keyframes subir {
@@ -67,7 +93,6 @@
         opacity: 0;
       }
     }
-
   </style>
 </head>
 
@@ -83,8 +108,17 @@
     <b>TE AMO.</b>
   </div>
 
-  <div class="contador" id="contador"></div>
+  <!-- 💖 CONTADOR -->
+  <div id="contador">
+    <span><b>0</b><small>dias</small></span>
+    <span><b>0</b><small>horas</small></span>
+    <span><b>0</b><small>min</small></span>
+    <span><b>0</b><small>seg</small></span>
+  </div>
 
+  <p style="margin-top:10px;">💖 Tempo do nosso amor 💖</p>
+
+  <!-- 📸 FOTOS -->
   <div class="gallery">
     <img src="foto1.jpg">
     <img src="foto2.jpg">
@@ -92,13 +126,13 @@
 
 </div>
 
-<!-- Música -->
+<!-- 🎵 MÚSICA -->
 <audio autoplay loop>
   <source src="musica.mp3" type="audio/mp3">
 </audio>
 
 <script>
-  const dataInicio = new Date("2025-08-31");
+  const dataInicio = new Date("2025-08-31T00:00:00");
 
   function atualizarContador() {
     const agora = new Date();
@@ -107,14 +141,20 @@
     const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
     const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const minutos = Math.floor((diff / (1000 * 60)) % 60);
+    const segundos = Math.floor((diff / 1000) % 60);
 
-    document.getElementById("contador").innerHTML =
-      "Estamos juntos há " + dias + " dias, " + horas + "h e " + minutos + "min 💖";
+    const spans = document.querySelectorAll("#contador span b");
+
+    spans[0].innerText = dias;
+    spans[1].innerText = horas;
+    spans[2].innerText = minutos;
+    spans[3].innerText = segundos;
   }
 
+  atualizarContador();
   setInterval(atualizarContador, 1000);
 
-  // 💖 Criar corações
+  // 💖 CORAÇÕES SUBINDO
   function criarCoracao() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
