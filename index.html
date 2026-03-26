@@ -28,6 +28,34 @@ h1 { margin-top: 30px; }
   backdrop-filter: blur(10px);
 }
 
+/* 💖 CONTADOR */
+#contador {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+#contador span {
+  background: rgba(255,255,255,0.2);
+  padding: 15px;
+  border-radius: 15px;
+  min-width: 70px;
+  backdrop-filter: blur(5px);
+}
+
+#contador b {
+  display: block;
+  font-size: 1.5em;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.animar {
+  transform: scale(1.3);
+  opacity: 0.5;
+}
+
 /* 📸 GALERIA */
 .gallery {
   display: grid;
@@ -113,15 +141,32 @@ h1 { margin-top: 30px; }
 <div class="container">
 
 <div class="text">
-Te amo muito 💖
+Um site para lembrar o meu amor e carinho por você.<br><br>
+Te conheci por uma live de tiktok e te mandava rosas kkk, mas naquela época não fazia ideia de tudo que você ia se tornar pra mim.<br><br>
+<b>TE AMO.</b>
 </div>
 
+<div id="contador">
+<span><b>0</b><small>dias</small></span>
+<span><b>0</b><small>horas</small></span>
+<span><b>0</b><small>min</small></span>
+<span><b>0</b><small>seg</small></span>
+</div>
+
+<p>💖 Tempo do nosso amor 💖</p>
+
+<!-- 📸 GALERIA (ATÉ 10 FOTOS) -->
 <div class="gallery">
 <img src="foto1.jpg" onclick="abrir(this)">
 <img src="foto2.jpg" onclick="abrir(this)">
 <img src="foto3.jpg" onclick="abrir(this)">
 <img src="foto4.jpg" onclick="abrir(this)">
 <img src="foto5.jpg" onclick="abrir(this)">
+<img src="foto6.jpg" onclick="abrir(this)">
+<img src="foto7.jpg" onclick="abrir(this)">
+<img src="foto8.jpg" onclick="abrir(this)">
+<img src="foto9.jpg" onclick="abrir(this)">
+<img src="foto10.jpg" onclick="abrir(this)">
 </div>
 
 </div>
@@ -133,7 +178,6 @@ Te amo muito 💖
 <button class="nav-btn next" onclick="mudar(1)">›</button>
 </div>
 
-<!-- AUDIO -->
 <audio id="musica" loop>
 <source src="musica.mp3">
 </audio>
@@ -167,7 +211,6 @@ function mudar(dir) {
   reiniciarAuto();
 }
 
-/* 🎬 AUTOPLAY */
 function iniciarAuto() {
   autoplay = setInterval(() => {
     mudar(1);
@@ -179,7 +222,6 @@ function reiniciarAuto() {
   iniciarAuto();
 }
 
-/* 👉 SWIPE */
 let startX = 0;
 
 document.getElementById("lightbox").addEventListener("touchstart", e => {
@@ -192,7 +234,6 @@ document.getElementById("lightbox").addEventListener("touchend", e => {
   if (endX - startX > 50) mudar(-1);
 });
 
-/* FECHAR */
 document.getElementById("lightbox").onclick = e => {
   if (e.target.id === "lightbox") {
     e.currentTarget.style.display = "none";
@@ -200,13 +241,11 @@ document.getElementById("lightbox").onclick = e => {
   }
 };
 
-/* 🎵 */
 function toggleMusic(){
   const m = document.getElementById("musica");
   m.paused ? m.play() : m.pause();
 }
 
-/* 💖 */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -216,6 +255,30 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },300);
+
+const dataInicio = new Date("2025-08-31T00:00:00");
+
+setInterval(()=>{
+  const d=new Date()-dataInicio;
+  const valores = [
+    Math.floor(d/86400000),
+    Math.floor(d/3600000)%24,
+    Math.floor(d/60000)%60,
+    Math.floor(d/1000)%60
+  ];
+
+  const el=document.querySelectorAll("#contador b");
+
+  el.forEach((e,i)=>{
+    if(e.innerText != valores[i]){
+      e.classList.add("animar");
+      setTimeout(()=>{
+        e.innerText = valores[i];
+        e.classList.remove("animar");
+      },150);
+    }
+  });
+},1000);
 </script>
 
 </body>
