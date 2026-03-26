@@ -17,63 +17,21 @@
 
     h1 {
       margin-top: 30px;
-      font-size: 2.8em;
+      font-size: 2.5em;
     }
 
     .container {
-      padding: 20px;
+      padding: 15px;
     }
 
     .text {
       max-width: 500px;
       margin: 20px auto;
-      font-size: 1.2em;
+      font-size: 1.1em;
       background: rgba(255,255,255,0.15);
       padding: 20px;
       border-radius: 20px;
       backdrop-filter: blur(10px);
-    }
-
-    /* 📸 GALERIA NOVA */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 10px;
-      padding: 10px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-
-    /* 🔍 LIGHTBOX */
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 15px;
     }
 
     /* 💖 CONTADOR */
@@ -99,14 +57,76 @@
       font-size: 1.5em;
     }
 
-    #contador small {
-      font-size: 0.8em;
-    }
-
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.08); }
       100% { transform: scale(1); }
+    }
+
+    /* 📸 STORIES */
+    .stories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 15px;
+    }
+
+    .stories img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 3px solid white;
+      cursor: pointer;
+    }
+
+    /* 📸 GALERIA */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 15px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .gallery img:hover {
+      transform: scale(1.04);
+    }
+
+    /* 🔥 FOTO PRINCIPAL */
+    .gallery img:first-child {
+      grid-column: span 2;
+      height: 230px;
+    }
+
+    /* 🔍 LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 15px;
     }
 
     /* 💖 CORAÇÕES */
@@ -118,14 +138,8 @@
     }
 
     @keyframes subir {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) scale(1.5);
-        opacity: 0;
-      }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
     }
   </style>
 </head>
@@ -138,7 +152,7 @@
 
   <div class="text">
     Um site para lembrar o meu amor e carinho por você.<br><br>
-    Te conheci por uma live de tiktok e te mandava rosas kkk, mas naquela época não fazia ideia de tudo que você ia se tornar pra mim.<br><br>
+    Te conheci por uma live de tiktok e te mandava rosas kkk...<br><br>
     <b>TE AMO.</b>
   </div>
 
@@ -150,9 +164,17 @@
     <span><b>0</b><small>seg</small></span>
   </div>
 
-  <p style="margin-top:10px;">💖 Tempo do nosso amor 💖</p>
+  <p>💖 Tempo do nosso amor 💖</p>
 
-  <!-- 📸 FOTOS -->
+  <!-- 📸 STORIES -->
+  <div class="stories">
+    <img src="foto1.jpg" onclick="abrir(this.src)">
+    <img src="foto2.jpg" onclick="abrir(this.src)">
+    <img src="foto3.jpg" onclick="abrir(this.src)">
+    <img src="foto4.jpg" onclick="abrir(this.src)">
+  </div>
+
+  <!-- 📸 GALERIA -->
   <div class="gallery">
     <img src="foto1.jpg" onclick="abrir(this.src)">
     <img src="foto2.jpg" onclick="abrir(this.src)">
@@ -192,7 +214,6 @@
     spans[3].innerText = segundos;
   }
 
-  atualizarContador();
   setInterval(atualizarContador, 1000);
 
   function abrir(src) {
@@ -204,7 +225,6 @@
     document.getElementById("lightbox").style.display = "none";
   }
 
-  // 💖 CORAÇÕES
   function criarCoracao() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -215,9 +235,7 @@
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-      heart.remove();
-    }, 6000);
+    setTimeout(() => heart.remove(), 6000);
   }
 
   setInterval(criarCoracao, 300);
