@@ -34,15 +34,49 @@
       backdrop-filter: blur(10px);
     }
 
-    .gallery img {
-      width: 90%;
-      max-width: 400px;
-      margin: 10px;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    /* 📸 GALERIA NOVA */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      padding: 10px;
     }
 
-    /* 💖 CONTADOR BONITO */
+    .gallery img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* 🔍 LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 15px;
+    }
+
+    /* 💖 CONTADOR */
     #contador {
       display: flex;
       justify-content: center;
@@ -120,10 +154,17 @@
 
   <!-- 📸 FOTOS -->
   <div class="gallery">
-    <img src="foto1.jpg">
-    <img src="foto2.jpg">
+    <img src="foto1.jpg" onclick="abrir(this.src)">
+    <img src="foto2.jpg" onclick="abrir(this.src)">
+    <img src="foto3.jpg" onclick="abrir(this.src)">
+    <img src="foto4.jpg" onclick="abrir(this.src)">
   </div>
 
+</div>
+
+<!-- 🔍 LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="fechar()">
+  <img id="imgGrande">
 </div>
 
 <!-- 🎵 MÚSICA -->
@@ -154,7 +195,16 @@
   atualizarContador();
   setInterval(atualizarContador, 1000);
 
-  // 💖 CORAÇÕES SUBINDO
+  function abrir(src) {
+    document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("imgGrande").src = src;
+  }
+
+  function fechar() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+
+  // 💖 CORAÇÕES
   function criarCoracao() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
